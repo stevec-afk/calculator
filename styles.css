@@ -59,6 +59,7 @@ body {
 }
 .btn-light {
     background-color: hsl(0, 0%, 65%);
+    color: black;
 }
 
 .btn-dark {
