@@ -32,15 +32,11 @@ function buttonClick(event) {
             decimal();
             break
         case 'backspace':
-            // if (isNaN(expression.slice(-1)) && operator !== ''){
-            //     expression = expression.slice(0, -1);
-            //     operator = '';
-            // } else {
-                if (currOperand !== ''){
-                    currOperand = currOperand.slice(0, -1);
-                    expression = expression.slice(0, -1);
-                }
-            //}
+            if (currOperand !== ''){
+                currOperand = currOperand.slice(0, -1);
+                expression = expression.slice(0, -1);
+            }
+
             break;
         case 'submit':
             expression = result;
