@@ -25,7 +25,7 @@ function buttonClick(event) {
             break;
         case 'neg':
             currOperand *= -1;
-            // Technically should also update the display here
+            // Technically should also update the display here. Meh.
             break;
         case 'mod':
             expression = expression / 100;
