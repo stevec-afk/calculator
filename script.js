@@ -120,37 +120,24 @@ function compute() {
         let curr = parseFloat(currOperand);
         switch (operator){
             case '+':
-                result = prev + curr;
+                result = Number((prev + curr).toFixed(10));
                 break;
             case '-':
-                result = prev - curr;
+                result = Number((prev - curr).toFixed(10));
                 break;
             case '*':
-                result = prev * curr;
+                result = Number((prev * curr).toFixed(10));
                 break;
             case '/':
-                result = prev / curr;
+                result = Number((prev / curr).toFixed(10));
                 break;
             default:
                 return;
         }
-    }
-}
-
-// Update the calculator state, depending on what was pressed
-function update(action, value){
-    if (action === 'number'){
-        currOperand += value;
-        return;
-    } else if (action ==='submit'){ 
-        prevOperand = '';
-        currOperand = result;
-        result = '';
-        pressedSubmit = true;
-    } else {
-        operator = value;
-        currOperand = '';
-        pressedSubmit=false;
+        if (!Number.isFinite(result)){
+            result = "Ya can't do that!"
+            console.log("https://media1.tenor.com/m/wkTHtO_TCFcAAAAd/hockey-you-cant-do-that.gif")
+        }
     }
 }
 
