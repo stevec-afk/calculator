@@ -9,6 +9,8 @@ let operator = '';
 let pressedSubmit = false;
 let expression = '';
 
+// One function to handle all the clicks! 
+// (1 handler vs 20 is better for performance)
 keypad.addEventListener('click', buttonClick);
 
 function buttonClick(event) {
@@ -23,6 +25,7 @@ function buttonClick(event) {
             break;
         case 'neg':
             currOperand *= -1;
+            // Technically should also update the display here
             break;
         case 'mod':
             expression = expression / 100;
@@ -36,7 +39,6 @@ function buttonClick(event) {
                 currOperand = currOperand.slice(0, -1);
                 expression = expression.slice(0, -1);
             }
-
             break;
         case 'submit':
             expression = result;
@@ -50,16 +52,20 @@ function buttonClick(event) {
         case 'subtract':
         case 'multiply':
         case 'divide':
+            // JS freaks out over decimals so we need to check to see 
+            // if JS thinks its a string or not and conv as needed.
             try{  
-                expression.slice(-1);
+                expression.slice(-1); // if it throws an error...
             }
             catch(err){
-                expression = expression.toString();
+                // ...then convert to a string
+                expression = expression.toString(); 
             }
             finally {
                 if (!isNaN(expression.slice(-1))){
                     // if operater is blank, map currOperand to prev, 
                     // else if operator already exists, map result to prev instead.
+                    // (behavior should be different)
                     prevOperand = (operator === '') ? currOperand : result;
                     operator = value; 
                     expression += operator; 
@@ -69,6 +75,7 @@ function buttonClick(event) {
             }
             break;
         case 'number':
+            // If user just pressed submit, then start over fresh
             if (pressedSubmit){
                 clear();
                 pressedSubmit = false;
@@ -79,8 +86,7 @@ function buttonClick(event) {
             break;
     }   
     
-    //prevOperand + operator + currOperand
-    // Update the display in HTML
+    // Update the display in the DOM
     expressionDiv.textContent = expression;
     resultDiv.textContent = result;
     console.log("prevOperand:",prevOperand,"Operator:",operator," currOperand:",currOperand, "result: ",result)
@@ -96,13 +102,9 @@ function clear() {
 }
 
 function decimal() {
-    // If there is already a decimal, do nothing
     if (expression.includes('.')) return; 
-    
-    // If the current expression is blank, append a leading '0'
     if (expression === '') appendValue('0');
-
-    expression += '.'; // Ok now you can do the thing
+    expression += '.'; 
     currOperand += '.';
     return;
 }
@@ -110,7 +112,7 @@ function compute() {
     // Check if we can actually do math yet
     if (prevOperand === '' || currOperand === '' || operator === ''){
         return; 
-    } else {
+    } else { 
         // do the math
         let prev = parseFloat(prevOperand);
         let curr = parseFloat(currOperand);
@@ -136,4 +138,3 @@ function compute() {
         }
     }
 }
-
