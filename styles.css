@@ -52,6 +52,7 @@ body {
 }
 .btn-green {
     background-color: hsl(120, 74%, 54%);
+    color: black;
 }
 .btn-grey {
     background-color: hsl(0, 0%, 25%);
